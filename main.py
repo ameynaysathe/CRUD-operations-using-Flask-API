@@ -1,11 +1,9 @@
 import pymysql
-# from app import app
 from config import mysql
 from flask import jsonify
 from flask import flash, request
 from flask import Flask
 from flask_cors import CORS, cross_origin
-# from app import app
 from flaskext.mysql import MySQL
 
 
@@ -34,7 +32,7 @@ def add_emp():
             cursor = conn.cursor()
             cursor.execute(sqlQuery, bindData)
             conn.commit()
-            respone = jsonify('Employee added successfully!')
+            respone = jsonify('Customer details added successfully!')
             respone.status_code = 200
             return respone
         else:
@@ -91,13 +89,13 @@ def update_emp():
         _address = _json['address']
         # validate the received values
         if _looking_for and _products and _name and _address and _id and request.method == 'PUT':
-            sqlQuery = "UPDATE customers SET name=%s, email=%s, phone=%s, address=%s WHERE id=%s"
+            sqlQuery = "UPDATE customers SET looking_for=%s, products=%s, name=%s, address=%s WHERE id=%s"
             bindData = (_looking_for, _products, _name, _address, _id,)
             conn = mysql.connect()
             cursor = conn.cursor()
             cursor.execute(sqlQuery, bindData)
             conn.commit()
-            respone = jsonify('Employee updated successfully!')
+            respone = jsonify('customer details updated successfully!')
             respone.status_code = 200
             return respone
         else:
